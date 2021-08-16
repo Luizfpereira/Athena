@@ -5,36 +5,24 @@ import MapService from "../../service/MapService";
 import { useEffect } from "react";
 import Sidebar from "../Sidebar";
 import "../Sidebar/sidebar.css";
+import Popup from '../Popup/Popup';
+import '../Popup/Popup.css';
 
 const MapContainer = (props) => {
   const [coord, setCoord] = useState([]);
 
-  let lat_array = [];
-
-  let lon_array = [];
-
-  let lat_lon = [];
+  let info_array = [];
 
   useEffect(() => {
     retrieveData();
     decideMarks(props.display);
   }, [props.display]);
 
-  async function retrieveData() {
-    console.log("retrieve");
+  async function retrieveData(){
     await MapService.retrieveData().then((response) => {
-      for (let i = 0; i < response.data.length; i++) {
-        if (i % 2 === 0) {
-          lat_array.push(parseFloat(response.data[i]));
-        } else {
-          lon_array.push(parseFloat(response.data[i]));
-        }
-      }
-      for (let i = 0; i < lat_array.length; i++) {
-        lat_lon.push({ latitude: lat_array[i], longitude: lon_array[i] });
-      }
+      response.data.map(e => info_array.push(e))
     });
-    setCoord(lat_lon);
+    setCoord(info_array);
   }
 
   const displayMarkers = () => {
@@ -44,9 +32,10 @@ const MapContainer = (props) => {
           key={index}
           id={index}
           position={{
-            lat: coord.latitude,
-            lng: coord.longitude,
+            lat: coord.lat,
+            lng: coord.lon,
           }}
+          onClick={() => {setBtnPopup(true); setInfoCoord(coord);}}
         />
       );
     });
@@ -59,8 +48,8 @@ const MapContainer = (props) => {
           key={index}
           id={index}
           center={{
-            lat: item.latitude,
-            lng: item.longitude,
+            lat: item.lat,
+            lng: item.lon,
           }}
           radius={1200.7819845667905}
           onClick={(event) => {
@@ -78,22 +67,29 @@ const MapContainer = (props) => {
 
   const [markerList, setMarkerList] = useState([]);
 
+  let pic = false;
+  let circle = false;
   function decideMarks(props){
-    console.log(props);
-    if(props.indexOf("pic") > -1 && props.indexOf("circle") > -1){
-      setMarkerList([displayMarkers(), displayCircles()]);
-    } else if (props.indexOf("pic") > -1) {
-      setMarkerList([displayMarkers()]);
-    } else if (props.indexOf("circle") > -1) {
-      setMarkerList([displayCircles()]);
-    } else {
-      setMarkerList([]);
+    if (props.indexOf("pic") > -1) {
+      pic = !pic;
+     }
+    if (props.indexOf("circle") > -1) {
+      circle = !circle;
     }
+    setMarkerList([pic ? displayMarkers() : null, circle ? displayCircles() : null])
     return markerList;
   }
 
+  const [btnPopup, setBtnPopup] = useState(false);
+  const [infoCoord, setInfoCoord] = useState([]);
+
   return (
     <>
+      <Popup trigger={btnPopup} setTrigger={setBtnPopup}>
+        <h2>Informações</h2>
+        <p>Latitude: {infoCoord.lat}; Longitude: {infoCoord.lon}</p>
+        <p>precip: {infoCoord.precip}</p>
+      </Popup>
       <Map
         google={props.google}
         zoom={4}

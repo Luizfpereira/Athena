@@ -11,16 +11,23 @@ import React from 'react';
 
 function App() {
 
-  const [display, setDisplay] = useState('');
+  const [display, setDisplay] = useState([]);
   const changeDisplay = (value) => {
+    console.log(value);
     let displayUpdated;
     if(display.indexOf(value) > -1){
       displayUpdated = display.filter(e => e !== value);
     } else {
       displayUpdated = [...display, value];
     }
+    console.log(displayUpdated);
     setDisplay(displayUpdated);
+  }
 
+  const [seen, setSeen] = useState(false);
+
+  const togglePop = () => {
+    setSeen(!seen);
   }
 
   return (
