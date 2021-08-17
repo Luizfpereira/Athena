@@ -1,4 +1,4 @@
-.popup{
+/* .popup{
     position: fixed;
     top: 0;
     left: 0;
@@ -9,18 +9,40 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
+} */
+
+.popup{
+    position:absolute;
+    top: 50%;
+    left: 5%;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.popup-header{
+    padding: 20px;
+    cursor:move;
+    background-color: #094270;
+    z-index: 2;
+    border-radius: 10px 10px 0 0;
+}
+
+.popup-header .close-btn{
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    cursor:pointer;
+    background-color: rgb(255, 175, 109);
+    color: #094270;
+    border-radius: 4px;
 }
 
 .popup-inner{
     position: relative;
-    padding: 32px;
+    padding: 15px;
     width: 100%;
     max-width: 640px;
-    background-color: white;
+    background-color: rgb(255, 175, 109);
+    border-radius: 0 0 10px 10px;
 }
 
-.popup-inner .close-btn{
-    position: absolute;
-    top: 16px;
-    right:16px;
-}

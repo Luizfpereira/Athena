@@ -4,9 +4,9 @@ import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div class="topnav">
+    <div className="topnav">
       <a className="brand active" href="#home">
-        Atena
+        Athena
       </a>
       <a href="#news">News</a>
       <a href="#contact">Contact</a>

@@ -24,11 +24,11 @@ function App() {
     setDisplay(displayUpdated);
   }
 
-  const [seen, setSeen] = useState(false);
+  // const [seen, setSeen] = useState(false);
 
-  const togglePop = () => {
-    setSeen(!seen);
-  }
+  // const togglePop = () => {
+  //   setSeen(!seen);
+  // }
 
   return (
     <>

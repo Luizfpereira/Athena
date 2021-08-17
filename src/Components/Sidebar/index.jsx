@@ -15,7 +15,7 @@ const Sidebar = ({changeDisplay}) => {
 
   return (
     <>
-      <div id="mySidenav" class="sidenav" onMouseLeave={closeNav}>
+      <div id="mySidenav" className="sidenav" onMouseLeave={closeNav}>
         {/* <a href="#" class="closebtn" onClick={closeNav}>&times;</a> */}
         <a href="#" onClick={() => changeDisplay('pic')}>
           PICs

@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
+import Draggable from 'react-draggable';
+import  CloseIcon from '@material-ui/icons/Close';
 
 function Popup(props){
+
     return (props.trigger) ? (
-        <div className="popup">
-            <div className="popup-inner">
-                <button className="close-btn" onClick={() => props.setTrigger(false)}>close</button>
-                {props.children}
+        <Draggable>
+            <div className="popup" >
+                <div className="popup-header">
+                    <CloseIcon className="close-btn" onClick={() => props.setTrigger(false)}>close</CloseIcon>
+                </div>
+                <div className="popup-inner">
+                    {props.children}
+                </div>
             </div>
-        </div>
+        </Draggable>
     ) : "";
 }
 
