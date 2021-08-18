@@ -1,0 +1,24 @@
+.div-select {
+    width: 160px; /* Tamanho final do select */
+    overflow: hidden; /* Esconde o conteúdo que passar do tamanho especificado */
+    z-index: 2;
+    position: absolute;
+    top:13%;
+    right:10%;
+    border-radius: 5px;
+  }
+  
+  .div-select select {
+    background:  rgb(3, 3, 80); 
+    width: 150px; /* Tamanho do select, maior que o tamanho da div "div-select" */
+    height: 48px; /* altura do select, importante para que tenha a mesma altura em todo os navegadores */
+    font-family: Arial, Helvetica, sans-serif; /* Fonte do Select */
+    font-size: 16px; /* Tamanho da Fonte */
+    padding: 13px 20px 13px 12px; /* Configurações de padding para posicionar o texto no campo */
+    color: orange; /* Cor da Fonte */
+    border-radius: 5px;
+    /*text-indent: 0.01px;  Remove seta padrão do FireFox */
+    /*text-overflow: "";  Remove seta padrão do FireFox */
+  }
+
+
