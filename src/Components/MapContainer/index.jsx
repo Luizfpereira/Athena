@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Map, GoogleApiWrapper, Marker, Circle, KmlLayer } from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker, Circle, Polygon } from "google-maps-react";
+import { useMap } from 'rgm';
 import Geocode from "react-geocode";
 import MapService from "../../service/MapService";
 import Popup from '../Popup/Popup';
 import Select from '../Select/Select';
 import "../Sidebar/sidebar.css";
 import '../Popup/Popup.css';
+//import coordJson from './coordJson.geojson'
 
 const MapContainer = (props) => {
   
@@ -28,6 +30,7 @@ const MapContainer = (props) => {
   const [btnPopup, setBtnPopup] = useState(false);
   const [infoCoord, setInfoCoord] = useState([]);
   const [location, setLocation] = useState("");
+  const [geojson, setGeojson] = useState([]);
  
   useEffect(() => {
     retrieveData();
@@ -171,6 +174,49 @@ const MapContainer = (props) => {
     );
   }
 
+  const options = {
+    fillColor: "rgb(3, 3, 80)",
+    fillOpacity: 0.6,
+    strokeColor: "orange",
+    strokeOpacity: 1,
+    strokeWeight: 2,
+    clickable: true,
+    draggable: true,
+    editable: false,
+    geodesic: false,
+    zIndex: 1
+  }
+
+  
+  let geojson_arr = []
+  const getData=()=>{
+    
+    fetch('coordJson.geojson'
+    ,{
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    }
+    )
+      .then(function(response){
+        console.log(response)
+        return response.json();
+      })
+      .then(function(myJson) {
+        myJson.geometry.coordinates[0].map(e => geojson_arr.push({lat:e[1], lng: e[0] }))
+        setGeojson(geojson_arr);
+        return myJson; 
+      });
+      
+  }
+  useEffect(()=>{
+    getData()
+  },[])
+  
+
+  console.log(geojson);
+
   return (
     <>
       <Popup trigger={btnPopup} setTrigger={setBtnPopup}>
@@ -187,6 +233,10 @@ const MapContainer = (props) => {
       >
         {markerList}
         {circleList}
+        <Polygon 
+          paths={geojson}
+          options={options}
+        />
       </Map>
       <Select setSelect={setSelect}/>
     </>
