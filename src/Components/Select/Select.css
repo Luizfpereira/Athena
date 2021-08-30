@@ -3,7 +3,7 @@
     overflow: hidden; /* Esconde o conteúdo que passar do tamanho especificado */
     z-index: 2;
     position: absolute;
-    top:13%;
+    top:16%;
     right:10%;
     border-radius: 5px;
   }

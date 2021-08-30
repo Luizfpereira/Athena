@@ -21,7 +21,7 @@ const Sidebar = ({changeDisplay}) => {
           PICs
         </a>
         <a href="#" onClick={() => changeDisplay('circle')}>Circles</a>
-        <a href="#">Clients</a>
+        <a href="#" onClick={() => changeDisplay('polygon')}>Polygon</a>
         <a href="#">Contact</a>
       </div>
       <button  className="btn-menu" onMouseEnter={openNav} >
